@@ -1,6 +1,11 @@
 # Core strategy & discovery (why/for whom)
 
 * For any adult over 18 that has a house, car, valuables that they need to insure and are looking to renew their insurance
+* [hypothesis] Current insurance renewal process is broken - it's manual, time consuming and opaque
+* [hypothesis] Most customers are not satisfied with how much they are paying for their insurance
+ * [hypothesis .1] Most customers do not understand the subcomponents to their insurance and how they apply to their situations
+ * [hypothesis .2] Prices for insurance are opaque, shopping process is so cumbersome that most people give-up after their first few data points
+  * Most customers feel they are overpaying for their insurance, there is a mesh of companies and their agents, each entity has a unique way of receiving information - either through forms OR phone / email
 * 
 
 
