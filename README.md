@@ -7,11 +7,9 @@
  * [hypothesis .2] Prices for insurance are opaque, shopping process is so cumbersome that most people give-up after their first few data points
    * Lack of standardized process or centralized price place to cross shop
    * There is a mesh of companies and their agents, each entity has a unique way of receiving information - either through forms OR phone / email
-* 
-
+   * A lot of dealings are done in human-native ways which have traditionally been hard to automate
 
 # Product definition (what)
-
 * Take the existing insurance coverage, understand the current coverage and price point
 
 
