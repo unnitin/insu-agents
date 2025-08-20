@@ -1,12 +1,19 @@
 # Core strategy & discovery (why/for whom)
 
+* For any adult over 18 that has a house, car, valuables that they need to insure and are looking to renew their insurance
+* 
+
 
 # Product definition (what)
 
+* Take the existing insurance coverage, understand the current coverage and price point
 
 
 # Engineering & data (how)
 
+* Breakdown coverage by the different components - like home, auto etc
+  * Understand the subcomponents selected in the insurance - e.g. is there flood insurance, is there earthquake insurance etc
+* 
 
 
 # Delivery & ops (when/risk)
