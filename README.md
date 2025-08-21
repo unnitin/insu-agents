@@ -15,11 +15,22 @@
   * Understand the current coverage, price point and payment frequency 
   * Understand the coverage parameters, e.g. bodily liability for auto is (150/300, 250/500 etc.)
   * Understand area of residence (zip code should be fine)
-* Shop for coverage from insurance companies that service the residence
+* Shop for coverage from insurance companies that service the area of residence
+* Get price ranges from different providers and provide to the customer
+* Help with selection, recommend an option to the customer. Draw comparison to other options
+* Recommend modifications to the policy if any 
 
 
 # Engineering & data (how)
 
+* Use OCR OR LLM to assess the existing insurance coverage
+  * Setup two way dialog with user to confirm all points before proceeding
+  * Consilidate frequently asked information so it can be filled through in forms / voiced over
+* Research companies and agents serving the area of residence
+  * Locate forms to fill out and begin filling them out
+  * Use previously collected information to fill out forms
+  * Use models for logical extrapolation based on home, car type (e.g. if a form is asking about type / style of home, use photos from google maps to describe etc)
+  * Open question - Where / how should we get more technical information about the house (eg. roof type, year of construction etc) ? NMLS ? 
 * Breakdown coverage by the different components - like home, auto etc
   * Understand the subcomponents selected in the insurance - e.g. is there flood insurance, is there earthquake insurance etc
 * 
