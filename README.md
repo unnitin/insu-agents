@@ -10,7 +10,12 @@
    * A lot of dealings are done in human-native ways which have traditionally been hard to automate
 
 # Product definition (what)
-* Take the existing insurance coverage, understand the current coverage and price point
+* Take the existing insurance coverage either as a pdf of the coverage document OR a screenshot 
+* Parse the document to ...
+  * Understand the current coverage, price point and payment frequency 
+  * Understand the coverage parameters, e.g. bodily liability for auto is (150/300, 250/500 etc.)
+  * Understand area of residence (zip code should be fine)
+* Shop for coverage from insurance companies that service the residence
 
 
 # Engineering & data (how)
