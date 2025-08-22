@@ -22,11 +22,10 @@
 
 
 # Engineering & data (how)
-
 * Use OCR OR LLM to assess the existing insurance coverage
   * Setup two way dialog with user to confirm all points before proceeding
   * Consilidate frequently asked information so it can be filled through in forms / voiced over
-* Research companies and agents serving the area of residence
+* Use a research agent to research companies and agents serving the area of residence
   * Locate forms to fill out and begin filling them out
   * Use previously collected information to fill out forms
   * Use models for logical extrapolation based on home, car type (e.g. if a form is asking about type / style of home, use photos from google maps to describe etc)
