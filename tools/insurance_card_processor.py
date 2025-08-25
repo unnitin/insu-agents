@@ -12,8 +12,13 @@ import re
 import json
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict
 import logging
+
+# Add parent directory to path for imports
+sys.path.append(str(Path(__file__).parent.parent))
+
+# Import data models
+from data_models import InsuranceCardInfo
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -48,41 +53,6 @@ except ImportError:
     np = None
     logger.warning("OpenCV library not installed. Advanced image processing features will be disabled.")
 
-
-@dataclass
-class InsuranceCardInfo:
-    """Data class for insurance card information"""
-    policy_number: str = ""
-    member_id: str = ""
-    group_number: str = ""
-    carrier_name: str = ""
-    member_name: str = ""
-    effective_date: str = ""
-    expiration_date: str = ""
-    
-    # Coverage details
-    copay_primary: str = ""
-    copay_specialist: str = ""
-    deductible: str = ""
-    out_of_pocket_max: str = ""
-    
-    # Additional information
-    phone_numbers: List[str] = None
-    additional_details: Dict[str, str] = None
-    
-    def __post_init__(self):
-        if self.phone_numbers is None:
-            self.phone_numbers = []
-        if self.additional_details is None:
-            self.additional_details = {}
-    
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary representation"""
-        return asdict(self)
-    
-    def is_valid(self) -> bool:
-        """Check if card has minimum required information"""
-        return bool(self.policy_number or self.member_id or self.carrier_name)
 
 
 class InsuranceCardProcessor:

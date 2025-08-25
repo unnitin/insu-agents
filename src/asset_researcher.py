@@ -18,13 +18,13 @@ from dataclasses import asdict
 from datetime import datetime
 import logging
 
-# Add config and tools directories to path for imports
-sys.path.append(str(Path(__file__).parent.parent / 'config'))
+# Add tools directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent / 'tools'))
+sys.path.append(str(Path(__file__).parent.parent))
 
-# Import asset models from config
-from assets import (Vehicle, Property, PersonalItem, PolicySummary, AssetCollection, AnalysisMetadata,
-                   VehicleFactBase, PropertyFactBase)
+# Import asset models from data_models
+from data_models import (Vehicle, Property, PersonalItem, PolicySummary, AssetCollection, AnalysisMetadata,
+                        VehicleFactBase, PropertyFactBase)
 
 # Import PDF processing capabilities
 from pdf_reader import InsurancePDFReader
