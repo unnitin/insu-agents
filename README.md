@@ -24,18 +24,23 @@
 # Engineering & data (how)
 * Use OCR OR LLM to assess the existing insurance coverage
   * Setup two way dialog with user to confirm all points before proceeding
-  * Consilidate frequently asked information so it can be filled through in forms / voiced over
+  * Consolidate frequently asked information so it can be filled through forms / voiced over
 * Use a research agent to understand various attributes of the asset
-  * for example - type of roof on the home, house type etc
-  * Tools needed - internet access to look at any pictures, bring up window sticker against car vin, or sale listing of the house
+  * Key tasks - Build fact base about assets to be insured. e.g. type of roof on the home, house layout, year built, type of floor etc.
+  * Tools needed -
+  *   Internet Access: To look at asset pictures, bring up window sticker against car vin, or sale listing of the home
+  *   Call APIs of redfin, NMLS etc. to understand sale listing and get details about the home/car etc
 * Use an insurance research agent to research companies and agents serving the area of residence
-  * Locate forms to fill out and begin filling them out
-  * Use previously collected information to fill out forms
-  * Use models for logical extrapolation based on home, car type (e.g. if a form is asking about type / style of home, use photos from google maps to describe etc)
-  * Open question - Where / how should we get more technical information about the house (eg. roof type, year of construction etc) ? NMLS ? 
-* Breakdown coverage by the different components - like home, auto etc
+  * Key tasks - Locate companies, use information on assets and prior insurance to get coverage quotes
+    * Locate forms to fill out and begin filling them out, using previously collected information
+    * Use foundational models to understand assets and make logical extrapolations to fill in gaps -- will want this to be flagged so it can be taken to the user for confirmation/amends
+  * Tools needed -
+    * Internet Access: To locate companies in specific areas, gather contact details
+    * Phone Access: To place calls to agents to assess offerings, have conversation around pricing etc.
+    * Messaging/Email Access: For communication similar to above
+* Present compiled options to user and update the list as the quotes come in
+  * Breakdown coverage by the different components - like home, auto etc
   * Understand the subcomponents selected in the insurance - e.g. is there flood insurance, is there earthquake insurance etc
-* 
 
 
 # Delivery & ops (when/risk)
