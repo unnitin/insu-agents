@@ -25,7 +25,10 @@
 * Use OCR OR LLM to assess the existing insurance coverage
   * Setup two way dialog with user to confirm all points before proceeding
   * Consilidate frequently asked information so it can be filled through in forms / voiced over
-* Use a research agent to research companies and agents serving the area of residence
+* Use a research agent to understand various attributes of the asset
+  * for example - type of roof on the home, house type etc
+  * Tools needed - internet access to look at any pictures, bring up window sticker against car vin, or sale listing of the house
+* Use an insurance research agent to research companies and agents serving the area of residence
   * Locate forms to fill out and begin filling them out
   * Use previously collected information to fill out forms
   * Use models for logical extrapolation based on home, car type (e.g. if a form is asking about type / style of home, use photos from google maps to describe etc)
