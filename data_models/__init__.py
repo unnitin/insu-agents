@@ -7,10 +7,10 @@ Organized by domain for better maintainability and separation of concerns.
 """
 
 # Vehicle models
-from .vehicle_models import Vehicle, VehicleFactBase
+from .vehicle_models import Vehicle
 
 # Property models
-from .property_models import Property, PropertyFactBase
+from .property_models import Property
 
 # Policy and analysis models
 from .policy_models import PolicySummary, AnalysisMetadata
@@ -35,11 +35,9 @@ from .factory_functions import (
 __all__ = [
     # Vehicle models
     'Vehicle',
-    'VehicleFactBase',
     
     # Property models
     'Property',
-    'PropertyFactBase',
     
     # Policy models
     'PolicySummary',

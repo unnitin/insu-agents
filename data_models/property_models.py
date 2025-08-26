@@ -241,6 +241,3 @@ class Property:
         else:
             return summary
 
-
-# Alias for backward compatibility
-PropertyFactBase = Property

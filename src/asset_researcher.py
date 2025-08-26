@@ -23,8 +23,7 @@ sys.path.append(str(Path(__file__).parent.parent / 'tools'))
 sys.path.append(str(Path(__file__).parent.parent))
 
 # Import asset models from data_models
-from data_models import (Vehicle, Property, PersonalItem, PolicySummary, AssetCollection, AnalysisMetadata,
-                        VehicleFactBase, PropertyFactBase)
+from data_models import (Vehicle, Property, PersonalItem, PolicySummary, AssetCollection, AnalysisMetadata)
 
 # Import PDF processing capabilities
 from pdf_reader import InsurancePDFReader
@@ -268,7 +267,7 @@ class PromptBasedAssetResearcher:
         # Add instruction formatting that works better with open models
         return f"### Instruction:\n{prompt}\n\n### Response:\n"
     
-    def build_property_fact_base(self, text: str) -> PropertyFactBase:
+    def build_property_fact_base(self, text: str) -> Property:
         """
         Build a comprehensive fact base for property assets using AI prompts.
         
@@ -276,7 +275,7 @@ class PromptBasedAssetResearcher:
             text (str): Insurance document text
             
         Returns:
-            PropertyFactBase: Comprehensive property information
+            Property: Comprehensive property information
         """
         if not self.use_ai:
             logger.warning("AI not available. Using pattern fallback for limited property extraction.")
@@ -352,8 +351,8 @@ class PromptBasedAssetResearcher:
                 else:
                     raise ValueError("No valid JSON found in response")
             
-            # Convert to PropertyFactBase
-            fact_base = PropertyFactBase(
+            # Convert to Property
+            fact_base = Property(
                 # Basic Info
                 property_type=property_data.get("basic_info", {}).get("property_type", ""),
                 address=property_data.get("basic_info", {}).get("address", ""),
@@ -406,7 +405,7 @@ class PromptBasedAssetResearcher:
             logger.error(f"AI property fact base generation failed: {e}. Using fallback.")
             return self._build_property_fact_base_fallback(text)
     
-    def build_vehicle_fact_base(self, text: str) -> List[VehicleFactBase]:
+    def build_vehicle_fact_base(self, text: str) -> List[Vehicle]:
         """
         Build comprehensive fact bases for vehicle assets using AI prompts.
         
@@ -414,7 +413,7 @@ class PromptBasedAssetResearcher:
             text (str): Insurance document text
             
         Returns:
-            List[VehicleFactBase]: List of comprehensive vehicle information
+            List[Vehicle]: List of comprehensive vehicle information
         """
         if not self.use_ai:
             logger.warning("AI not available. Using pattern fallback for limited vehicle extraction.")
@@ -495,10 +494,10 @@ class PromptBasedAssetResearcher:
                 else:
                     raise ValueError("No valid JSON found in vehicle response")
             
-            # Convert to VehicleFactBase objects
+            # Convert to Vehicle objects
             fact_bases = []
             for vehicle_data in vehicles_data.get("vehicles", []):
-                fact_base = VehicleFactBase(
+                fact_base = Vehicle(
                     # Basic Info
                     make=vehicle_data.get("basic_info", {}).get("make", ""),
                     model=vehicle_data.get("basic_info", {}).get("model", ""),
@@ -599,10 +598,10 @@ class PromptBasedAssetResearcher:
         logger.info(f"Fact-based analysis complete - {len(vehicle_fact_bases)} vehicles, {metadata.total_properties} properties")
         return results
     
-    def _build_property_fact_base_fallback(self, text: str) -> PropertyFactBase:
+    def _build_property_fact_base_fallback(self, text: str) -> Property:
         """Fallback method using pattern matching for basic property info."""
         # Basic fallback implementation
-        fact_base = PropertyFactBase()
+        fact_base = Property()
         if hasattr(self, 'extract_properties') and self.fallback_patterns:
             properties = self.extract_properties(text)
             if properties:
@@ -618,13 +617,13 @@ class PromptBasedAssetResearcher:
                 fact_base.deductible = getattr(prop, 'deductible', '')
         return fact_base
     
-    def _build_vehicle_fact_base_fallback(self, text: str) -> List[VehicleFactBase]:
+    def _build_vehicle_fact_base_fallback(self, text: str) -> List[Vehicle]:
         """Fallback method using pattern matching for basic vehicle info."""
         fact_bases = []
         if hasattr(self, 'extract_vehicles') and self.fallback_patterns:
             vehicles = self.extract_vehicles(text)
             for vehicle in vehicles:
-                fact_base = VehicleFactBase()
+                fact_base = Vehicle()
                 fact_base.make = getattr(vehicle, 'make', '')
                 fact_base.model = getattr(vehicle, 'model', '')
                 fact_base.year = getattr(vehicle, 'year', '')
