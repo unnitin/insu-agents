@@ -1,0 +1,39 @@
+# Insurance PDF Reader Dependencies
+# Core PDF processing libraries
+PyPDF2==3.0.1
+pdfplumber==0.10.3
+
+# Additional useful libraries for text processing
+pandas==2.1.4
+numpy==1.24.4
+
+# AI Enhancement - OpenAI API
+openai==1.54.3
+
+# Open Source Models - Hugging Face
+transformers==4.45.2
+torch==2.1.2
+accelerate==0.25.0
+sentencepiece==0.1.99
+protobuf==4.25.1
+
+# Image Processing - OCR and Computer Vision
+Pillow==10.1.0
+pytesseract==0.3.10
+opencv-python==4.8.1.78
+numpy>=1.24.4
+
+# Web Research - HTTP requests and HTML parsing
+requests==2.31.0
+beautifulsoup4==4.12.2
+urllib3==2.1.0
+
+# Optional: For advanced text analysis (uncomment if needed)
+# nltk==3.8.1
+# spacy==3.7.2
+# textblob==0.17.1
+
+# Development dependencies (optional)
+# pytest==7.4.3
+# black==23.11.0
+# flake8==6.1.0
