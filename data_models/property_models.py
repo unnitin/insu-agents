@@ -78,6 +78,73 @@ class Property:
         if self.risk_factors is None:
             self.risk_factors = []
     
+    @classmethod
+    def from_dict(cls, property_data: Dict[str, Any]) -> 'Property':
+        """
+        Create a Property instance from a structured dictionary.
+        
+        Args:
+            property_data: Dictionary containing property information with nested structure
+                          Expected structure:
+                          {
+                              "basic_info": {...},
+                              "construction": {...},
+                              "interior": {...},
+                              "layout": {...},
+                              "safety": {...},
+                              "coverage": {...},
+                              "risk_factors": [...]
+                          }
+        
+        Returns:
+            Property: Configured Property instance
+        """
+        return cls(
+            # Basic Info
+            property_type=property_data.get("basic_info", {}).get("property_type", ""),
+            address=property_data.get("basic_info", {}).get("address", ""),
+            year_built=property_data.get("basic_info", {}).get("year_built", ""),
+            square_footage=property_data.get("basic_info", {}).get("square_footage", ""),
+            
+            # Construction
+            construction_type=property_data.get("construction", {}).get("construction_type", ""),
+            roof_type=property_data.get("construction", {}).get("roof_type", ""),
+            roof_age=property_data.get("construction", {}).get("roof_age", ""),
+            foundation_type=property_data.get("construction", {}).get("foundation_type", ""),
+            exterior_material=property_data.get("construction", {}).get("exterior_material", ""),
+            
+            # Interior
+            flooring_types=property_data.get("interior", {}).get("flooring_types", []),
+            heating_system=property_data.get("interior", {}).get("heating_system", ""),
+            cooling_system=property_data.get("interior", {}).get("cooling_system", ""),
+            electrical_system=property_data.get("interior", {}).get("electrical_system", ""),
+            plumbing_type=property_data.get("interior", {}).get("plumbing_type", ""),
+            
+            # Layout
+            bedrooms=property_data.get("layout", {}).get("bedrooms", ""),
+            bathrooms=property_data.get("layout", {}).get("bathrooms", ""),
+            stories=property_data.get("layout", {}).get("stories", ""),
+            garage_type=property_data.get("layout", {}).get("garage_type", ""),
+            garage_spaces=property_data.get("layout", {}).get("garage_spaces", ""),
+            basement=property_data.get("layout", {}).get("basement", ""),
+            pool=property_data.get("layout", {}).get("pool", ""),
+            
+            # Safety
+            security_system=property_data.get("safety", {}).get("security_system", ""),
+            fire_detection=property_data.get("safety", {}).get("fire_detection", ""),
+            safety_features=property_data.get("safety", {}).get("safety_features", []),
+            
+            # Coverage
+            dwelling_coverage=property_data.get("coverage", {}).get("dwelling_coverage", ""),
+            personal_property_coverage=property_data.get("coverage", {}).get("personal_property_coverage", ""),
+            liability_coverage=property_data.get("coverage", {}).get("liability_coverage", ""),
+            deductible=property_data.get("coverage", {}).get("deductible", ""),
+            additional_coverage=property_data.get("coverage", {}).get("additional_coverage", []),
+            
+            # Risk factors
+            risk_factors=property_data.get("risk_factors", [])
+        )
+    
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary representation"""
         return asdict(self)

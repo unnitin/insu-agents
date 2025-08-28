@@ -24,6 +24,9 @@ from .card_models import InsuranceCardInfo
 # Collection and utility models
 from .collection_models import AssetCollection
 
+# Web research models
+from .web_models import SearchResult, WebContent
+
 # Utility functions
 from .factory_functions import (
     create_vehicle_from_dict,
@@ -51,6 +54,10 @@ __all__ = [
     
     # Collection models
     'AssetCollection',
+    
+    # Web models
+    'SearchResult',
+    'WebContent',
     
     # Factory functions
     'create_vehicle_from_dict',

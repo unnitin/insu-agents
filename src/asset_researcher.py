@@ -19,6 +19,7 @@ from datetime import datetime
 import logging
 
 # Add tools directory to path for imports
+# TODO: Use init to support relative imports
 sys.path.append(str(Path(__file__).parent.parent / 'tools'))
 sys.path.append(str(Path(__file__).parent.parent))
 # Add src directory to path for base agent import
@@ -178,52 +179,8 @@ class PromptBasedAssetResearcher(InsuranceBaseAgent):
                 else:
                     raise ValueError("No valid JSON found in response")
             
-            # Convert to Property
-            fact_base = Property(
-                # Basic Info
-                property_type=property_data.get("basic_info", {}).get("property_type", ""),
-                address=property_data.get("basic_info", {}).get("address", ""),
-                year_built=property_data.get("basic_info", {}).get("year_built", ""),
-                square_footage=property_data.get("basic_info", {}).get("square_footage", ""),
-                
-                # Construction
-                construction_type=property_data.get("construction", {}).get("construction_type", ""),
-                roof_type=property_data.get("construction", {}).get("roof_type", ""),
-                roof_age=property_data.get("construction", {}).get("roof_age", ""),
-                foundation_type=property_data.get("construction", {}).get("foundation_type", ""),
-                exterior_material=property_data.get("construction", {}).get("exterior_material", ""),
-                
-                # Interior
-                flooring_types=property_data.get("interior", {}).get("flooring_types", []),
-                heating_system=property_data.get("interior", {}).get("heating_system", ""),
-                cooling_system=property_data.get("interior", {}).get("cooling_system", ""),
-                electrical_system=property_data.get("interior", {}).get("electrical_system", ""),
-                plumbing_type=property_data.get("interior", {}).get("plumbing_type", ""),
-                
-                # Layout
-                bedrooms=property_data.get("layout", {}).get("bedrooms", ""),
-                bathrooms=property_data.get("layout", {}).get("bathrooms", ""),
-                stories=property_data.get("layout", {}).get("stories", ""),
-                garage_type=property_data.get("layout", {}).get("garage_type", ""),
-                garage_spaces=property_data.get("layout", {}).get("garage_spaces", ""),
-                basement=property_data.get("layout", {}).get("basement", ""),
-                pool=property_data.get("layout", {}).get("pool", ""),
-                
-                # Safety
-                security_system=property_data.get("safety", {}).get("security_system", ""),
-                fire_detection=property_data.get("safety", {}).get("fire_detection", ""),
-                safety_features=property_data.get("safety", {}).get("safety_features", []),
-                
-                # Coverage
-                dwelling_coverage=property_data.get("coverage", {}).get("dwelling_coverage", ""),
-                personal_property_coverage=property_data.get("coverage", {}).get("personal_property_coverage", ""),
-                liability_coverage=property_data.get("coverage", {}).get("liability_coverage", ""),
-                deductible=property_data.get("coverage", {}).get("deductible", ""),
-                additional_coverage=property_data.get("coverage", {}).get("additional_coverage", []),
-                
-                # Risk factors
-                risk_factors=property_data.get("risk_factors", [])
-            )
+            # Convert to Property using the new from_dict method
+            fact_base = Property.from_dict(property_data)
             
             logger.info("Built comprehensive property fact base using AI analysis")
             return fact_base
@@ -324,52 +281,8 @@ class PromptBasedAssetResearcher(InsuranceBaseAgent):
             # Convert to Vehicle objects
             fact_bases = []
             for vehicle_data in vehicles_data.get("vehicles", []):
-                fact_base = Vehicle(
-                    # Basic Info
-                    make=vehicle_data.get("basic_info", {}).get("make", ""),
-                    model=vehicle_data.get("basic_info", {}).get("model", ""),
-                    year=vehicle_data.get("basic_info", {}).get("year", ""),
-                    vin=vehicle_data.get("basic_info", {}).get("vin", ""),
-                    
-                    # Specifications
-                    body_type=vehicle_data.get("specifications", {}).get("body_type", ""),
-                    fuel_type=vehicle_data.get("specifications", {}).get("fuel_type", ""),
-                    transmission=vehicle_data.get("specifications", {}).get("transmission", ""),
-                    engine_size=vehicle_data.get("specifications", {}).get("engine_size", ""),
-                    drivetrain=vehicle_data.get("specifications", {}).get("drivetrain", ""),
-                    
-                    # Details
-                    mileage=vehicle_data.get("details", {}).get("mileage", ""),
-                    color=vehicle_data.get("details", {}).get("color", ""),
-                    trim_level=vehicle_data.get("details", {}).get("trim_level", ""),
-                    doors=vehicle_data.get("details", {}).get("doors", ""),
-                    seating_capacity=vehicle_data.get("details", {}).get("seating_capacity", ""),
-                    
-                    # Safety & Security
-                    safety_features=vehicle_data.get("safety_security", {}).get("safety_features", []),
-                    security_features=vehicle_data.get("safety_security", {}).get("security_features", []),
-                    
-                    # Usage
-                    primary_use=vehicle_data.get("usage", {}).get("primary_use", ""),
-                    annual_mileage=vehicle_data.get("usage", {}).get("annual_mileage", ""),
-                    garage_kept=vehicle_data.get("usage", {}).get("garage_kept", ""),
-                    condition=vehicle_data.get("usage", {}).get("condition", ""),
-                    
-                    # Modifications
-                    modifications=vehicle_data.get("modifications", {}).get("modifications", []),
-                    aftermarket_parts=vehicle_data.get("modifications", {}).get("aftermarket_parts", []),
-                    
-                    # Coverage
-                    policy_number=vehicle_data.get("coverage", {}).get("policy_number", ""),
-                    coverage_type=vehicle_data.get("coverage", {}).get("coverage_type", ""),
-                    liability_limit=vehicle_data.get("coverage", {}).get("liability_limit", ""),
-                    comprehensive_deductible=vehicle_data.get("coverage", {}).get("comprehensive_deductible", ""),
-                    collision_deductible=vehicle_data.get("coverage", {}).get("collision_deductible", ""),
-                    additional_coverage=vehicle_data.get("coverage", {}).get("additional_coverage", []),
-                    
-                    # Risk factors
-                    risk_factors=vehicle_data.get("risk_factors", [])
-                )
+                # Convert to Vehicle using the new from_dict method
+                fact_base = Vehicle.from_dict(vehicle_data)
                 fact_bases.append(fact_base)
             
             logger.info(f"Built {len(fact_bases)} comprehensive vehicle fact bases using AI analysis")

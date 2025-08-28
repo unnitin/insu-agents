@@ -23,6 +23,11 @@ pytesseract==0.3.10
 opencv-python==4.8.1.78
 numpy>=1.24.4
 
+# Web Research - HTTP requests and HTML parsing
+requests==2.31.0
+beautifulsoup4==4.12.2
+urllib3==2.1.0
+
 # Optional: For advanced text analysis (uncomment if needed)
 # nltk==3.8.1
 # spacy==3.7.2

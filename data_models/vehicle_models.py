@@ -84,6 +84,75 @@ class Vehicle:
         if self.additional_details is None:
             self.additional_details = {}
     
+    @classmethod
+    def from_dict(cls, vehicle_data: Dict[str, Any]) -> 'Vehicle':
+        """
+        Create a Vehicle instance from a structured dictionary.
+        
+        Args:
+            vehicle_data: Dictionary containing vehicle information with nested structure
+                         Expected structure:
+                         {
+                             "basic_info": {...},
+                             "specifications": {...},
+                             "details": {...},
+                             "safety_security": {...},
+                             "usage": {...},
+                             "modifications": {...},
+                             "coverage": {...},
+                             "risk_factors": [...]
+                         }
+        
+        Returns:
+            Vehicle: Configured Vehicle instance
+        """
+        return cls(
+            # Basic Info
+            make=vehicle_data.get("basic_info", {}).get("make", ""),
+            model=vehicle_data.get("basic_info", {}).get("model", ""),
+            year=vehicle_data.get("basic_info", {}).get("year", ""),
+            vin=vehicle_data.get("basic_info", {}).get("vin", ""),
+            
+            # Specifications
+            body_type=vehicle_data.get("specifications", {}).get("body_type", ""),
+            fuel_type=vehicle_data.get("specifications", {}).get("fuel_type", ""),
+            transmission=vehicle_data.get("specifications", {}).get("transmission", ""),
+            engine_size=vehicle_data.get("specifications", {}).get("engine_size", ""),
+            drivetrain=vehicle_data.get("specifications", {}).get("drivetrain", ""),
+            
+            # Details
+            mileage=vehicle_data.get("details", {}).get("mileage", ""),
+            color=vehicle_data.get("details", {}).get("color", ""),
+            trim_level=vehicle_data.get("details", {}).get("trim_level", ""),
+            doors=vehicle_data.get("details", {}).get("doors", ""),
+            seating_capacity=vehicle_data.get("details", {}).get("seating_capacity", ""),
+            
+            # Safety & Security
+            safety_features=vehicle_data.get("safety_security", {}).get("safety_features", []),
+            security_features=vehicle_data.get("safety_security", {}).get("security_features", []),
+            
+            # Usage
+            primary_use=vehicle_data.get("usage", {}).get("primary_use", ""),
+            annual_mileage=vehicle_data.get("usage", {}).get("annual_mileage", ""),
+            garage_kept=vehicle_data.get("usage", {}).get("garage_kept", ""),
+            condition=vehicle_data.get("usage", {}).get("condition", ""),
+            
+            # Modifications
+            modifications=vehicle_data.get("modifications", {}).get("modifications", []),
+            aftermarket_parts=vehicle_data.get("modifications", {}).get("aftermarket_parts", []),
+            
+            # Coverage
+            policy_number=vehicle_data.get("coverage", {}).get("policy_number", ""),
+            coverage_type=vehicle_data.get("coverage", {}).get("coverage_type", ""),
+            liability_limit=vehicle_data.get("coverage", {}).get("liability_limit", ""),
+            comprehensive_deductible=vehicle_data.get("coverage", {}).get("comprehensive_deductible", ""),
+            collision_deductible=vehicle_data.get("coverage", {}).get("collision_deductible", ""),
+            additional_coverage=vehicle_data.get("coverage", {}).get("additional_coverage", []),
+            
+            # Risk factors
+            risk_factors=vehicle_data.get("risk_factors", [])
+        )
+    
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary representation"""
         return asdict(self)
