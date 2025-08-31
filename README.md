@@ -73,3 +73,7 @@ RAID Log — risks, assumptions, issues, dependencies.
 Launch Checklist & GTM Brief — readiness gates, comms, support.
 Postmortem Template — blameless, action-items with owners/dates.
 
+
+
+### Project root helper
+Use `from root import resolve` to build absolute paths from the repo root. Example: `resolve('input','images')`.
