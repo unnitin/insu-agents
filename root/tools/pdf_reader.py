@@ -261,3 +261,33 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# --- Added adapter methods for agentic wrappers ---
+def extract_text(self, pdf_path) -> str:
+    from pathlib import Path as _Path
+    try:
+        p = _Path(pdf_path)
+        if p.exists():
+            res = self.read_pdf_pdfplumber(p)
+            if isinstance(res, dict) and res.get("text"):
+                return res.get("text")
+            txt = self.read_pdf_pypdf2(p)
+            return txt or ""
+    except Exception:
+        pass
+    return ""
+
+def extract_policy_info(self, text: str) -> dict:
+    import re
+    carrier = None
+    m = re.search(r"Carrier[:\s]+([A-Za-z0-9 &.-]+)", text, re.I)
+    if m: carrier = m.group(1).strip()
+    policy_no = None
+    m = re.search(r"Policy\s*(No\.|Number)[:\s]+([A-Z0-9-]+)", text, re.I)
+    if m: policy_no = m.group(2).strip()
+    eff = None; exp = None
+    me = re.search(r"Effective[:\s]+([0-9/\-]+)", text, re.I)
+    mx = re.search(r"Expir(?:y|ation)[:\s]+([0-9/\-]+)", text, re.I)
+    if me: eff = me.group(1)
+    if mx: exp = mx.group(1)
+    return {"carrier": carrier, "policy_number": policy_no, "effective_date": eff, "expiry_date": exp, "coverages": {}}

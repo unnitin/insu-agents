@@ -508,3 +508,29 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# --- Added adapter methods for agentic wrappers ---
+def find_image_files(self):
+    from pathlib import Path as _Path
+    d = _Path(getattr(self, "input_dir", "."))
+    return [p for p in d.glob("*") if p.suffix.lower() in {".png",".jpg",".jpeg",".webp",".tiff",".bmp"}]
+
+def ocr_image(self, path):
+    # Implement a single-file OCR using your existing pipeline
+    # Fall back to empty string if unsupported
+    try:
+        # If you have a helper like process_image_file(path), call it here
+        return ""  # TODO: implement
+    except Exception:
+        return ""
+
+def extract_insurance_info(self, text: str) -> dict:
+    import re
+    pol = None; car = None; exp = None
+    m = re.search(r"Policy\s*(No\.|Number)[:\s]+([A-Z0-9-]+)", text, re.I)
+    if m: pol = m.group(2).strip()
+    m = re.search(r"(GEICO|State Farm|Allstate|Progressive|Liberty|USAA|Farmers)", text, re.I)
+    if m: car = m.group(1)
+    m = re.search(r"Exp(?:\.|iration)[:\s]+([0-9/\-]+)", text, re.I)
+    if m: exp = m.group(1)
+    return {"policy_number": pol, "carrier": car, "expiry_date": exp}

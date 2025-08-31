@@ -432,3 +432,19 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# --- Added unified search interface for agentic wrappers ---
+def search(self, query: str, max_results: int = 5):
+    try:
+        results = self.search_duckduckgo(query, max_results=max_results)
+    except Exception:
+        results = []
+    out = []
+    for r in results:
+        title = getattr(r, "title", None) or (r.get("title") if isinstance(r, dict) else None)
+        url = getattr(r, "url", None) or (r.get("url") if isinstance(r, dict) else None)
+        snippet = getattr(r, "snippet", None) or (r.get("content") if isinstance(r, dict) else "")
+        if snippet:
+            snippet = snippet[:240]
+        out.append({"title": title, "url": url, "snippet": snippet})
+    return out
