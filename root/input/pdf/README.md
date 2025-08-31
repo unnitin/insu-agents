@@ -1,1 +1,0 @@
-Assume that the files presented here represent files shared in one session, can be all at once or as a part of back and forth

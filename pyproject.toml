@@ -1,21 +1,21 @@
 
 [project]
-name = "insurance-agentic"
-version = "0.1.0"
-description = "Agentic orchestrator and tools for insurance renewal, integrated with existing repo"
+name = "insurance-agentic-suite"
+version = "0.2.0"
+description = "Insurance renewal agentic orchestrator and core tools"
 requires-python = ">=3.10"
 dependencies = [
-    "fastapi",
-    "uvicorn",
-    "pydantic",
-    "twilio",
-    "google-api-python-client",
-    "google-auth-httplib2",
-    "google-auth-oauthlib",
-    "jsonschema",
-    "PyPDF2",
-    "requests",
+  "fastapi",
+  "uvicorn",
+  "pydantic",
+  "twilio",
+  "google-api-python-client",
+  "google-auth-httplib2",
+  "google-auth-oauthlib",
+  "jsonschema",
+  "PyPDF2",
+  "requests",
 ]
 
 [tool.setuptools.packages.find]
-where = ["."]
+where = ["src"]
