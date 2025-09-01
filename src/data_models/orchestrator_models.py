@@ -140,7 +140,7 @@ class WorldState:
         missing_fields: List of required fields that are still missing
     """
     user_zip: Optional[str] = None
-    policy: Optional[PolicySummary] = None
+    policy: PolicySummary = field(default_factory=PolicySummary)
     vehicles: List[Vehicle] = field(default_factory=list)
     properties: List[Property] = field(default_factory=list)
     personals: List[PersonalItem] = field(default_factory=list)
