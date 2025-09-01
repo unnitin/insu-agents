@@ -233,8 +233,105 @@ class InsurancePDFReader:
         return ""
 
     def extract_policy_info(self, text: str) -> dict:
-        """Extract policy information from text using regex patterns."""
+        """
+        Extract policy information using agentic approach with regex fallback.
+        
+        Strategy:
+        1. First attempt: Use LLM/AI to intelligently extract policy information
+        2. Fallback: Use regex patterns if LLM fails or is unavailable
+        """
+        import logging
+        logger = logging.getLogger(__name__)
+        
+        # Try agentic extraction first
+        try:
+            agentic_result = self._extract_policy_info_agentic(text)
+            if self._is_valid_policy_result(agentic_result):
+                logger.info("Policy extraction: Agentic method successful")
+                return agentic_result
+            else:
+                logger.warning("Policy extraction: Agentic method returned incomplete data, falling back to regex")
+        except Exception as e:
+            logger.warning(f"Policy extraction: Agentic method failed ({e}), falling back to regex")
+        
+        # Fallback to regex extraction
+        regex_result = self._extract_policy_info_regex(text)
+        logger.info("Policy extraction: Using regex fallback method")
+        return regex_result
+    
+    def _extract_policy_info_agentic(self, text: str) -> dict:
+        """Extract policy information using LLM/AI approach."""
+        import json
+        import os
+        
+        # Try to use OpenAI API if available
+        try:
+            import openai
+            
+            # Check if API key is available
+            api_key = os.getenv('OPENAI_API_KEY')
+            if not api_key:
+                raise ValueError("OPENAI_API_KEY not found")
+            
+            client = openai.OpenAI(api_key=api_key)
+            
+            prompt = f"""
+Extract insurance policy information from the following text and return it as JSON.
+
+Text to analyze:
+{text[:2000]}  # Limit text to avoid token limits
+
+Please extract the following information and return as valid JSON:
+{{
+    "carrier": "Insurance company name (e.g., 'ACME INSURANCE COMPANY')",
+    "policy_number": "Policy number (e.g., 'HO-2024-123456')",
+    "effective_date": "Policy effective date (e.g., 'January 1, 2024')",
+    "expiry_date": "Policy expiration date (e.g., 'January 1, 2025')",
+    "coverages": {{}}
+}}
+
+Rules:
+- Return only valid JSON, no additional text
+- Use null for missing information
+- Extract exact text as it appears in the document
+- For dates, preserve the original format
+"""
+
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are an expert at extracting insurance policy information. Return only valid JSON."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.1,
+                max_tokens=500
+            )
+            
+            result_text = response.choices[0].message.content.strip()
+            
+            # Parse JSON response
+            try:
+                result = json.loads(result_text)
+                return result
+            except json.JSONDecodeError:
+                # Try to extract JSON from response if wrapped in markdown
+                import re
+                json_match = re.search(r'```(?:json)?\s*(\{.*?\})\s*```', result_text, re.DOTALL)
+                if json_match:
+                    result = json.loads(json_match.group(1))
+                    return result
+                else:
+                    raise ValueError("Could not parse JSON from LLM response")
+                    
+        except ImportError:
+            raise ValueError("OpenAI library not available")
+        except Exception as e:
+            raise ValueError(f"OpenAI API call failed: {e}")
+    
+    def _extract_policy_info_regex(self, text: str) -> dict:
+        """Extract policy information using regex patterns (fallback method)."""
         import re
+        
         carrier = None
         # Look for carrier name at the beginning or with "COMPANY" suffix
         m = re.search(r"^([A-Z][A-Z0-9 &.-]+(?:INSURANCE|COMPANY))", text, re.I | re.M)
@@ -256,6 +353,15 @@ class InsurancePDFReader:
         if mx: exp = mx.group(1).strip()
         
         return {"carrier": carrier, "policy_number": policy_no, "effective_date": eff, "expiry_date": exp, "coverages": {}}
+    
+    def _is_valid_policy_result(self, result: dict) -> bool:
+        """Check if the policy extraction result has meaningful data."""
+        if not isinstance(result, dict):
+            return False
+        
+        # Check if we have at least one of the key fields
+        key_fields = ['carrier', 'policy_number']
+        return any(result.get(field) and str(result.get(field)).strip() for field in key_fields)
 
 
 def main():

@@ -49,7 +49,7 @@ def main():
         sys.exit(1)
     
     # Set up environment
-    project_root = Path(__file__).parent
+    project_root = Path(__file__).parent.parent
     src_dir = project_root / "src"
     
     # Add src to Python path
@@ -67,7 +67,7 @@ def main():
     
     # Import and run the test
     try:
-        from tests.test_orchestrator_pdf_integration import test_orchestrator_pdf_integration
+        from test_orchestrator_pdf_integration import test_orchestrator_pdf_integration
         
         print(f"\n🧪 Starting integration test...")
         success = test_orchestrator_pdf_integration()
