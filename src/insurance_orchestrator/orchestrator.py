@@ -93,7 +93,7 @@ def observe_and_update(state: WorldState, observations: List[Dict[str, Any]]) ->
             state.policy.carrier = pol.get("carrier") or state.policy.carrier
             state.policy.policy_number = pol.get("policy_number") or state.policy.policy_number
             state.policy.effective_date = pol.get("effective_date") or state.policy.effective_date
-            state.policy.expiry_date = pol.get("expiry_date") or state.policy.expiry_date
+            state.policy.expiration_date = pol.get("expiry_date") or pol.get("expiration_date") or state.policy.expiration_date
             state.policy.coverages.update(pol.get("coverages",{}))
         elif name == "card_ocr":
             for c in res.get("cards",[]):

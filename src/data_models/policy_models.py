@@ -5,8 +5,8 @@ Policy and Analysis Data Models
 Contains dataclasses related to policy information and analysis metadata.
 """
 
-from dataclasses import dataclass, asdict
-from typing import Dict, Any, Optional
+from dataclasses import dataclass, asdict, field
+from typing import Dict, Any, Optional, List
 from datetime import datetime
 
 
@@ -39,6 +39,8 @@ class PolicySummary:
     premium: str = ""
     carrier: str = ""
     agent: str = ""
+    coverages: Dict[str, Any] = field(default_factory=dict)
+    raw_text_refs: List[str] = field(default_factory=list)
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary representation"""

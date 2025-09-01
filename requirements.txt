@@ -1,0 +1,7 @@
+# Core PDF processing dependencies
+PyPDF2>=3.0.0
+reportlab>=4.0.0  
+pdfplumber>=0.11.0
+
+# Optional but recommended for enhanced functionality
+# Add other dependencies as needed for the insurance orchestrator
