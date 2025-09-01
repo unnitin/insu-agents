@@ -3,6 +3,21 @@
 Factory Functions for Data Models
 
 Contains utility functions for creating data model instances from dictionary data.
+These functions provide safe, validated ways to construct model objects from
+raw data sources like APIs, file parsing, or user input.
+
+The factory functions handle type conversion, validation, and field filtering
+to ensure only valid data is used to create model instances. They also provide
+data sanitization and validation utilities.
+
+Functions:
+    create_vehicle_from_dict: Create Vehicle from dictionary
+    create_property_from_dict: Create Property from dictionary
+    create_personal_item_from_dict: Create PersonalItem from dictionary
+    create_policy_summary_from_dict: Create PolicySummary from dictionary
+    validate_vehicle_data: Validate vehicle data completeness
+    validate_property_data: Validate property data completeness
+    sanitize_data: Clean and normalize input data
 """
 
 from typing import Dict, Any

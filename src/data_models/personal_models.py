@@ -11,7 +11,24 @@ from typing import Dict, Any, Optional
 
 @dataclass
 class PersonalItem:
-    """Data class for personal property items"""
+    """
+    Represents a personal property item for insurance coverage.
+    
+    This model stores information about valuable personal items that may require
+    special insurance coverage, such as jewelry, electronics, artwork, or other
+    high-value possessions. Used by the system to track and value personal
+    property for insurance purposes.
+    
+    The model includes methods for value assessment, categorization, and
+    formatting for insurance applications.
+    
+    Attributes:
+        item_type: Category of the personal item (e.g., "jewelry", "electronics")
+        description: Detailed description of the item
+        value: Estimated or appraised value (string with currency)
+        coverage_type: Type of insurance coverage needed
+        additional_details: Dictionary for extra item-specific information
+    """
     item_type: str = ""
     description: str = ""
     value: str = ""

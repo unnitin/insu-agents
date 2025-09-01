@@ -13,10 +13,21 @@ from typing import Optional
 @dataclass
 class SearchResult:
     """
-    Data class for web search results.
+    Represents a single result from a web search operation.
     
-    Represents a single search result from a web search engine,
-    containing the essential information needed for further processing.
+    This model stores the essential information returned by search engines
+    when looking for insurance-related information, quotes, or providers.
+    Used by web research tools to structure and process search results
+    before further analysis or content extraction.
+    
+    The model provides a standardized format for search results regardless
+    of the underlying search engine used.
+    
+    Attributes:
+        title: Page title from search results
+        url: Full URL of the search result page
+        snippet: Brief description/preview text from search results
+        source: Search engine source identifier (e.g., "duckduckgo", "google")
     """
     title: str          # Page title from search results
     url: str           # Page URL
@@ -27,10 +38,24 @@ class SearchResult:
 @dataclass
 class WebContent:
     """
-    Data class for extracted web page content.
+    Represents content extracted from a web page.
     
-    Represents the content extracted from a web page, including
-    metadata about the extraction process and success status.
+    This model stores the text content extracted from web pages, along with
+    metadata about the extraction process. Used by web research tools to
+    structure and analyze content from insurance provider websites, quote
+    forms, and other relevant web resources.
+    
+    The model includes utility methods for content analysis, keyword searching,
+    and text processing to support automated research operations.
+    
+    Attributes:
+        url: Source URL of the extracted content
+        title: Page title
+        content: Extracted text content from the page
+        word_count: Number of words in the extracted content
+        extracted_at: ISO timestamp of when extraction occurred
+        success: Whether the extraction was successful
+        error: Error message if extraction failed
     """
     url: str                    # Source URL
     title: str                  # Page title

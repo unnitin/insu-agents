@@ -14,7 +14,24 @@ from .policy_models import PolicySummary, AnalysisMetadata
 
 class AssetCollection:
     """
-    Container class for managing collections of insurance assets
+    Container class for managing collections of insurance assets.
+    
+    This class provides a centralized way to manage and analyze collections
+    of vehicles, properties, and personal items for insurance purposes.
+    It aggregates multiple asset types and provides utilities for calculating
+    total coverage values, filtering assets, and generating comprehensive
+    summaries.
+    
+    The collection includes policy summary information and analysis metadata
+    to provide complete context for insurance decision-making. Used throughout
+    the system when working with multiple assets simultaneously.
+    
+    Attributes:
+        vehicles: List of Vehicle objects
+        properties: List of Property objects  
+        personal_items: List of PersonalItem objects
+        policy_summary: Optional PolicySummary object
+        metadata: Optional AnalysisMetadata object
     """
     
     def __init__(self):

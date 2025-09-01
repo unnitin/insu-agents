@@ -2,7 +2,7 @@
 from __future__ import annotations
 import argparse, json
 from dataclasses import asdict
-from insurance_orchestrator.schema import WorldState
+from data_models import WorldState
 from insurance_orchestrator.orchestrator import run_pipeline
 
 def llm_call(prompt: str, tools: list[dict]) -> dict:

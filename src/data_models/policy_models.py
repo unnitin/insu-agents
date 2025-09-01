@@ -12,7 +12,26 @@ from datetime import datetime
 
 @dataclass
 class PolicySummary:
-    """Data class for overall policy information"""
+    """
+    Represents comprehensive insurance policy summary information.
+    
+    This model stores the key details about an insurance policy, including
+    policy identification, coverage dates, premium information, and responsible
+    parties. Used throughout the system to maintain policy context and make
+    policy-related decisions.
+    
+    The model includes utility methods for premium calculations, policy status
+    validation, and date-based operations.
+    
+    Attributes:
+        policy_number: Unique policy identifier
+        policy_holder: Name of the primary policy holder
+        effective_date: Date when policy coverage begins
+        expiration_date: Date when policy coverage ends
+        premium: Premium amount (string with currency formatting)
+        carrier: Insurance company/carrier name
+        agent: Insurance agent name or contact
+    """
     policy_number: str = ""
     policy_holder: str = ""
     effective_date: str = ""
@@ -61,7 +80,27 @@ class PolicySummary:
 
 @dataclass
 class AnalysisMetadata:
-    """Data class for analysis metadata and processing information"""
+    """
+    Represents metadata about document analysis and processing operations.
+    
+    This model tracks information about the analysis process itself, including
+    performance metrics, data quality assessments, and processing statistics.
+    Used by analysis tools to provide insights into the reliability and
+    completeness of extracted information.
+    
+    The model includes methods for calculating processing efficiency and
+    confidence assessments.
+    
+    Attributes:
+        analysis_date: Timestamp when analysis was performed
+        total_vehicles: Number of vehicles found in analysis
+        total_properties: Number of properties found in analysis
+        total_personal_items: Number of personal items found in analysis
+        document_length: Length of source document in characters
+        processing_time_seconds: Time taken to complete analysis
+        data_quality_score: Quality assessment score (0.0-1.0)
+        confidence_score: Confidence in analysis results (0.0-1.0)
+    """
     analysis_date: str = ""
     total_vehicles: int = 0
     total_properties: int = 0

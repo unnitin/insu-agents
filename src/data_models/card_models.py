@@ -12,7 +12,32 @@ from datetime import datetime
 
 @dataclass
 class InsuranceCardInfo:
-    """Data class for insurance card information"""
+    """
+    Represents structured information extracted from insurance card images.
+    
+    This model stores all the key information typically found on insurance cards,
+    including policy details, member information, coverage specifics, and contact
+    details. Used primarily by the OCR processing tools to structure extracted
+    text data from insurance card images.
+    
+    The model includes validation methods to check card validity and expiration,
+    as well as utility methods for formatting and accessing the data.
+    
+    Attributes:
+        policy_number: Insurance policy number
+        member_id: Member/subscriber ID number
+        group_number: Group plan number (if applicable)
+        carrier_name: Name of the insurance company
+        member_name: Name of the insured member
+        effective_date: Policy effective date (string format)
+        expiration_date: Policy expiration date (string format)
+        copay_primary: Primary care copay amount
+        copay_specialist: Specialist visit copay amount
+        deductible: Annual deductible amount
+        out_of_pocket_max: Maximum out-of-pocket expense
+        phone_numbers: List of contact phone numbers
+        additional_details: Dictionary for any extra information
+    """
     policy_number: str = ""
     member_id: str = ""
     group_number: str = ""
