@@ -5,17 +5,26 @@ A comprehensive AI-powered insurance processing system with automated tools for 
 ## Quick Start
 
 ```bash
-# Run the main demo
-python main.py
+# Run insurance quote processing (ZIP code required)
+python main.py --zip 12345
 
-# Run specific components
-python main.py --tools-only          # Demo individual tools
-python main.py --orchestrator-only   # Demo orchestration pipeline
-python main.py --pdf policy.pdf      # Include PDF processing
+# Process with specific PDF files
+python main.py --zip 90210 --pdf policy1.pdf policy2.pdf
+
+# Use custom input directory
+python main.py --zip 98109 --input-dir /path/to/files
 
 # Run tests
 python run_tests.py
 ```
+
+## Main Workflow
+
+The system follows a 3-step process:
+
+1. **Initialize System**: Import files and set up tool registry
+2. **Analyze Requirements**: Scan PDFs and files to understand current insurance needs
+3. **Research Options**: Use research agents to find and compile quote options
 
 ## Architecture
 
