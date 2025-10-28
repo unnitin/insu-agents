@@ -37,7 +37,7 @@ class AssetResearchTool(Tool):
 
         # Preferred path: leverage the project's asset researcher if available
         try:
-            from insurance_tools.core.asset_researcher import PromptBasedAssetResearcher
+            from tools.core.asset_researcher import PromptBasedAssetResearcher
             researcher = PromptBasedAssetResearcher(debug=False)
             res = researcher.research_assets(prompt=prompt, sources=sources, max_results=max_results)
             # Expecting res to possibly contain similar keys; normalize defensively

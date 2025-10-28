@@ -13,16 +13,12 @@ class CardOCRTool(Tool):
     def run(self, **kwargs) -> Dict[str, Any]:
         images_dir = kwargs.get("images_dir")
         if not images_dir:
-            try:
-                from insurance_core import resolve
-                images_dir = str(resolve("input","images"))
-            except Exception:
-                images_dir = "./input/images"
+            images_dir = "input/images"
         if not os.path.isdir(images_dir):
             raise ToolError(f"images_dir not found: {images_dir}")
         results = []
         try:
-            from insurance_tools.core.insurance_card_processor import InsuranceCardProcessor
+            from tools.core.insurance_card_processor import InsuranceCardProcessor
             proc = InsuranceCardProcessor(input_dir=images_dir)
             files = proc.find_image_files()
             for f in files:

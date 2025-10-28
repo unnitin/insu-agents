@@ -13,7 +13,7 @@ class WebResearchTool(Tool):
         zip_code = kwargs.get("zip")
         top_k = kwargs.get("top_k",5)
         try:
-            from insurance_tools.core.web_researcher import WebResearcher
+            from tools.core.web_researcher import WebResearcher
             wr = WebResearcher(rate_limit_per_minute=10)
             queries = [f"insurance agents near {zip_code}"]
             leads = []

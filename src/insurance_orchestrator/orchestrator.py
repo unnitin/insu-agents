@@ -3,39 +3,25 @@ from __future__ import annotations
 from typing import Dict, Any, List
 from dataclasses import asdict
 from data_models import WorldState, Lead
-from insurance_tools.base import Tool
-from insurance_tools.pdf_reader_tool import PdfReaderTool
-from insurance_tools.card_ocr_tool import CardOCRTool
-from insurance_tools.web_research_tool import WebResearchTool
-from insurance_tools.form_filler_tool import FormFillerTool
-from insurance_tools.email_draft_tool import EmailDraftTool
-from insurance_tools.voice_call_tool import VoiceCallTool
-from insurance_tools.email_reader_tool import EmailReaderTool
-from insurance_tools.asset_research_tool import AssetResearchTool
+from tools.pdf_reader_tool import PdfReaderTool
+from tools.card_ocr_tool import CardOCRTool
+from tools.web_research_tool import WebResearchTool
+from tools.form_filler_tool import FormFillerTool
+from tools.email_draft_tool import EmailDraftTool
+from tools.voice_call_tool import VoiceCallTool
+from tools.email_reader_tool import EmailReaderTool
+from tools.asset_research_tool import AssetResearchTool
+from toolregistry import ToolRegistry
 from .validators import validate_args
 from .policies import default_policy
 from .planners.planner_llm import plan_with_llm
-
-class ToolRegistry:
-    def __init__(self, tools: List[Tool]):
-        self._tools = {t.name: t for t in tools}
-    def get(self, name: str) -> Tool:
-        return self._tools[name]
-    def list(self) -> List[str]:
-        return list(self._tools.keys())
-    def specs(self) -> List[Dict[str, Any]]:
-        return [{"name": t.name, "description": getattr(t,"description",""), "input_schema": getattr(t,"input_schema",{}), "output_schema": getattr(t,"output_schema",{})} for t in self._tools.values()]
 
 def plan_next(state: WorldState) -> List[Dict[str, Any]]:
     actions: List[Dict[str, Any]] = []
     if not (state.policy.policy_number or state.policy.carrier):
         actions.append({"tool":"pdf_reader","args":{"pdf_path": state.policy.raw_text_refs[0] if state.policy.raw_text_refs else ""}})
     if not state.vehicles or not state.properties:
-        try:
-            from insurance_core import resolve
-            actions.append({"tool":"card_ocr","args":{"images_dir": str(resolve("input","images"))}})
-        except Exception:
-            actions.append({"tool":"card_ocr","args":{"images_dir":"./input/images"}})
+        actions.append({"tool":"card_ocr","args":{"images_dir":"input/images"}})
     if state.user_zip and not state.leads:
         actions.append({"tool":"web_research","args":{"zip": state.user_zip, "asset_types":["auto","home"], "top_k":5}})
     if state.leads and not state.bid_results:

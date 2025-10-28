@@ -15,7 +15,7 @@ class PdfReaderTool(Tool):
         if not pdf_path or not os.path.exists(pdf_path):
             raise ToolError(f"PDF not found: {pdf_path}")
         try:
-            from insurance_tools.core.pdf_reader import InsurancePDFReader
+            from tools.core.pdf_reader import InsurancePDFReader
             reader = InsurancePDFReader()
             text = reader.extract_text(pdf_path)
             policy = reader.extract_policy_info(text)

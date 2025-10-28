@@ -1,5 +1,6 @@
 
 def test_imports():
-    import insurance_core
+    import data_models
+    import tools
     import insurance_orchestrator
-    import toolregistry_service
+    import toolregistry

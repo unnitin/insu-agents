@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 def test_agentic_extraction():
     """Test the agentic extraction approach."""
-    from insurance_tools.pdf_reader_tool import PdfReaderTool
+    from tools.pdf_reader_tool import PdfReaderTool
     
     print("🤖 AGENTIC POLICY EXTRACTION TEST")
     print("=" * 50)

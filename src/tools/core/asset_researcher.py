@@ -1,3 +1,4 @@
+# TODO: Replace openAI key with huggingface so we can actually use it
 #!/usr/bin/env python3
 """
 Prompt-Based Asset Researcher Agent
